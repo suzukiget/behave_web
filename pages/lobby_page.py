@@ -15,7 +15,7 @@ class LobbyPage(Page):
         self.find_btn().click()
 
     def find_btn(self):
-        return self.context.driver.find_element_by_xpath('//*[@id="page"]/div[1]/div[1]/nav/div[2]/div[1]/ul/li[6]')
+        return self.context.driver.find_element_by_xpath('//*[@id="page"]/div[1]/div[1]/nav/div[2]/div[1]/ul/li[5]')
 
 
     def find_set_name(self):

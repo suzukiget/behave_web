@@ -33,27 +33,5 @@ def step_impl(context):
 @then('we see welcome title')
 def step_impl(context):
     assert "Welcome," in context.authorized_page.get_page_head()
-    context.driver.implicitly_wait(10)
 
 
-'''@given('we are on Hipchat Lobby Page')
-def step_impl(context):
-    context.authorized_page.enter_app()
-    context.driver.implicitly_wait(5)
-    pass
-    #context.driver.get('https://bortnik.hipchat.com/chat')
-
-
-@then('we creating the room')
-def step_impl(context):
-    context.lobby_page.create_room()
-    context.lobby_page.set_name()
-    context.lobby_page.click_create_room()'''
-
-
-
-
-'''@then('we entered')
-def step_impl(context):
-    assert context.lobby_page.new_url()
-'''
