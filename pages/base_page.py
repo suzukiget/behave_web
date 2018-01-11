@@ -17,3 +17,4 @@ class Page(object):
 
     def at(self):
         return self.context.base_url + self.url == self.context.driver.current_url
+

@@ -6,3 +6,5 @@ Scenario: Login to HipChat
     When we enter login
     And we enter password
     Then we see Welcome title
+
+
