@@ -22,7 +22,8 @@ from pages.login_page import LoginPage
 from pages.authorized_page import AuthorizedPage
 from pages.lobby_page import LobbyPage
 from features.environment_secret import HIPCHAT_LOGIN, HIPCHAT_PASS
-from selenium.webdriver.support.ui import WebDriverWait
+import selenium.webdriver.support.ui as ui
+
 
 def before_all(context):
 
@@ -31,10 +32,12 @@ def before_all(context):
 
     context.base_url = "https://www.hipchat.com"
     context.driver = webdriver.Chrome()
+    context.wait = ui.WebDriverWait(context.driver, 10)
 
     context.login_page = LoginPage(context)
     context.authorized_page = AuthorizedPage(context)
     context.lobby_page = LobbyPage(context)
+
 
 
 def after_all(context):
