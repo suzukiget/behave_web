@@ -26,7 +26,7 @@ class LobbyPage(Page):
 
     def set_name(self):
         #rand = random.randint(1, 999)
-        self.find_set_name().send_keys('111')
+        self.find_set_name().send_keys('11')
         self.context.wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="create-room-dialog"]/footer/div[1]/button[1]')))
 
 
