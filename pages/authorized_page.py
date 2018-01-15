@@ -15,3 +15,22 @@ class AuthorizedPage(Page):
 
     def get_page_head(self):
         return self.label_page_head().text
+
+    def current_url(self):
+        return self.context.driver.current_url
+
+    def edit_profile(self):
+        self.context.driver.find_element_by_link_text('Edit Profile').click()
+
+    def get_acc_settings(self):
+        ment_name = self.context.driver.find_element_by_id('mention_name').get_attribute('value')
+        name = self.context.driver.find_element_by_id('name').get_attribute('value')
+        email = self.context.driver.find_element_by_id('email').get_attribute('value')
+        if len(ment_name) > 0 and len(name) > 0 and len(email) > 0:
+            return True
+        else:
+            return False
+
+
+
+
