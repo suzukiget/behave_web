@@ -21,14 +21,14 @@ class LobbyPage(Page):
     def find_btn(self):
         return self.context.driver.find_element_by_css_selector('#page > div.hc-layout > div.hc-left-sidebar-col > nav > div.aui-navgroup-inner > div:nth-child(2) > ul > li.hc-tab.hc-add-item-link')
 
-
     def find_set_name(self):
         return self.context.driver.find_element_by_id('create-room-name')
 
     def set_name(self):
-        rand = random.randint(1, 999)
-        self.find_set_name().send_keys(rand)
+        #rand = random.randint(1, 999)
+        self.find_set_name().send_keys('111')
         self.context.wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="create-room-dialog"]/footer/div[1]/button[1]')))
+
 
     def find_create_btn(self):
         self.context.wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="create-room-dialog"]/footer/div[1]/button[1]')))
@@ -52,13 +52,19 @@ class LobbyPage(Page):
 
     def send_invite(self):
         self.context.driver.find_element_by_css_selector('#s2id_invite-users-people').click()
-        self.context.driver.find_element_by_xpath('//*[@id="select2-drop"]/ul/li[3]').click()
+        self.context.driver.find_element_by_xpath('//*[@id="select2-drop"]/ul/li[4]').click()
+
 
     def find_invite(self):
         return self.context.driver.find_element_by_xpath('//*[@id="invite-users-dialog"]/footer/div[1]/button[1]')
 
     def invite(self):
         self.find_invite().click()
+
+
+    def renavigate(self):
+        self.context.driver.get(self.context.base_url+'/sign_in')
+
 
 
 
