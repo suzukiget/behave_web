@@ -7,6 +7,9 @@
 from behave import given, when, then
 import selenium
 
+
+
+'''
 @given('we are on login page')
 def step_impl(context):
     context.login_page.navigate()
@@ -33,3 +36,4 @@ def step_impl(context):
 def step_impl(context):
     context.lobby_page.check_input()
 
+'''
