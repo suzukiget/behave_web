@@ -31,6 +31,8 @@ def before_all(context):
     context.base_url = "https://www.hipchat.com"
     context.driver = webdriver.Chrome()
 
+    context.mention_message = "@all"
+
     context.login_page = LoginPage(context)
     context.authorized_page = AuthorizedPage(context)
 
