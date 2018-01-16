@@ -1,10 +1,10 @@
 from .base_page import Page
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 
 class ChatPage(Page):
 
     url = 'chat/'
-
 
 
     def find_chat(self):
@@ -21,17 +21,12 @@ class ChatPage(Page):
         return self.context.driver.find_element_by_css_selector("#input_actions_dropdown > div > ul > li:nth-child(1) > a")
 
 
-    #def switch_to_frame(self):
-        #self.context.wait.until(lambda driver: driver.find_element_by_class_name('hc-addon-iframe'))
-     #   frame = self.context.driver.find_element_by_class_name('hc-addon-iframe')
-      #  return self.context.driver.switch_to.frame(frame)
-
     def find_config(self):
-
-        self.context.wait.until(lambda driver: driver.find_element(By.XPATH, '//*[@id="react-app"]/div/div/a'))
-        self.context.driver.find_element(By.XPATH, '//*[@id="react-app"]/div/div/a').click()
+        self.context.wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="react-app"]/div/div/a')))
+        return self.context.driver.find_element(By.XPATH, '//*[@id="react-app"]/div/div/a')
 
     def find_alias_form(self):
+        self.context.wait.until(EC.presence_of_element_located((By.NAME, 'alias')))
         return self.context.driver.find_element_by_name('alias')
 
     def find_form_name(self):
@@ -41,17 +36,6 @@ class ChatPage(Page):
     def find_input_but(self):
         return self.context.driver.find_element_by_css_selector\
             ('#react-app > div > form > div > div.aui-item.actions > input')
-
-    def find_added_el(self):
-        self.context.wait.until(lambda driver: self.context.driver.find_elements_by_css_selector('.aui>.aliases>.alias>.mentions'))
-        tabledata = self.context.driver.find_elements_by_css_selector('.aui>.aliases>.alias>.mentions')
-        print(tabledata)
-        result = False
-        for element in tabledata:
-            if element.text == "@HenaYamkoviy":
-                print(element.text)
-                result = True
-        return result
 
 
     def input_data_in_alias_form(self):
@@ -69,9 +53,16 @@ class ChatPage(Page):
             self.find_form_name().send_keys(u'\ue007')
 
 
+
     def open_config(self):
-        #self.switch_to_frame()
-        self.find_config()
+        try:
+            self.context.wait.until(EC.frame_to_be_available_and_switch_to_it((By.CLASS_NAME, "hc-addon-iframe")))
+            self.context.driver.switch_to.frame(self.context.driver.find_element_by_class_name('hc-addon-iframe'))
+            self.find_config().click()
+        except:
+            self.context.driver.switch_to.frame(self.context.driver.find_element_by_class_name('hc-addon-iframe'))
+            self.find_config().click()
+
     def open_menu(self):
         self.find_butt_in_dropdown_menu().click()
 
@@ -81,3 +72,12 @@ class ChatPage(Page):
 
     def open_alias_menu(self):
         self.find_plus_butt().click()
+
+    def find_added_el(self):
+        self.context.wait.until(lambda driver: self.context.driver.find_elements_by_css_selector('.aui>.aliases>.alias>.mentions'))
+        tabledata = self.context.driver.find_elements_by_css_selector('.aui>.aliases>.alias>.mentions')
+        result = False
+        for element in tabledata:
+            if element.text == "@HenaYamkoviy":
+                result = True
+        return result
