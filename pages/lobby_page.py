@@ -1,7 +1,6 @@
 # -*- coding: UTF-8 -*-
 
 from .base_page import Page
-import random
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -13,19 +12,18 @@ class LobbyPage(Page):
     url = '/chat'
 
     def create_room(self):
-
         self.find_btn().click()
-        self.context.wait.until(EC.element_to_be_clickable((By.ID, 'create-room-name')))
+        #self.context.wait.until(EC.element_to_be_clickable((By.ID, 'create-room-name')))
 
 
     def find_btn(self):
-        return self.context.driver.find_element_by_css_selector('#page > div.hc-layout > div.hc-left-sidebar-col > nav > div.aui-navgroup-inner > div:nth-child(2) > ul > li.hc-tab.hc-add-item-link')
+        #return self.context.driver.find_element_by_css_selector('li.hc-tab:nth-child(9)')
+        return  self.context.driver.find_element_by_xpath('//*[@class="aui-nav-item hc-create-room-link"]')
 
     def find_set_name(self):
         return self.context.driver.find_element_by_id('create-room-name')
 
     def set_name(self):
-        #rand = random.randint(1, 999)
         self.find_set_name().send_keys('11')
         self.context.wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="create-room-dialog"]/footer/div[1]/button[1]')))
 
@@ -64,6 +62,14 @@ class LobbyPage(Page):
 
     def renavigate(self):
         self.context.driver.get(self.context.base_url+'/sign_in')
+
+
+    def accept_invite(self):
+        self.context.driver.find_element_by_xpath('//*[@id="page"]/div[1]/div[2]/div/div/div/div[1]').click()
+        from selenium.webdriver.common.keys import Keys
+        self.context.driver.find_element_by_id('hc-message-input').send_keys('@all', Keys.RETURN, Keys.RETURN)
+        self.context.wait.until(EC.visibility_of_element_located((By.XPATH, '//*[@class="msg-line"]')))
+
 
 
 
