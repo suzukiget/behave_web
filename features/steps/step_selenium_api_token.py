@@ -23,8 +23,18 @@ def step_impl(context):
     assert '/account' in context.authorized_page.current_url()
 
 
-@then('we see filled account settings')
+@then('we click API access')
 def step_impl(context):
-    assert context.authorized_page.get_acc_settings()
+    context.authorized_page.api_access()
+    assert '/confirm_password?redirect_to=/account/api' in context.authorized_page.current_url()
 
+@when('we reenter password')
+def step_impl(context):
+    context.login_page.enter_pass(context.hipchat_pass)
+    context.authorized_page.api_submit()
+    assert '/account/api' in context.authorized_page.current_url()
+
+@then('we are on API access page')
+def step_impl(context):
+    context.authorized_page.create_new_token()
 

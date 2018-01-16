@@ -22,15 +22,21 @@ class AuthorizedPage(Page):
     def edit_profile(self):
         self.context.driver.find_element_by_link_text('Edit Profile').click()
 
-    def get_acc_settings(self):
-        ment_name = self.context.driver.find_element_by_id('mention_name').get_attribute('value')
-        name = self.context.driver.find_element_by_id('name').get_attribute('value')
-        email = self.context.driver.find_element_by_id('email').get_attribute('value')
-        if len(ment_name) > 0 and len(name) > 0 and len(email) > 0:
+    def api_access(self):
+        self.context.driver.find_element_by_link_text('API access').click()
+
+    def api_submit(self):
+        self.context.driver.find_element_by_id('submit').click()
+
+
+    def create_new_token(self):
+        self.context.driver.find_element_by_id('label').click()
+        self.context.driver.find_element_by_id('label').send_keys('test')
+        self.context.driver.find_element_by_id('create').click()
+
+    def check_token(self):
+        ch_token = self.context.driver.find_element_by_id('label').get_attribute('value')
+        if len(ch_token) > 0 :
             return True
         else:
             return False
-
-
-
-
