@@ -27,9 +27,7 @@ def step_impl(context):
     context.chat_page.open_config()
     context.chat_page.input_data_in_alias_form()
     context.chat_page.input_data_in_alias_name_form()
-
     pass
-
 
 @then('we check our data')
 def step_impl(context):
