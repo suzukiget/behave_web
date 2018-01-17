@@ -17,7 +17,7 @@ class ChatPage(Page):
         self.find_plus_butt().click()
 
     def find_plus_butt(self):
-        self.context.wait.until(lambda driver: driver.find_element_by_id('input_actions_dropdown-trigger'))
+        self.context.wait.until(EC.presence_of_element_located((By.ID, 'input_actions_dropdown-trigger')))
         return self.context.driver.find_element_by_id("input_actions_dropdown-trigger")
 
     def open_menu(self):
