@@ -7,10 +7,10 @@ class ChatPage(Page):
 
     url = 'chat/'
 
-    def open_chat(self):
-        self.find_chat().click()
+    def open_alias_room(self):
+        self.find_alias_room().click()
 
-    def find_chat(self):
+    def find_alias_room(self):
         self.context.wait.until(EC.presence_of_element_located((By.ID, 'status_dropdown')))
         return self.context.driver.find_element_by_xpath("//span[text()='Alias room']")
 

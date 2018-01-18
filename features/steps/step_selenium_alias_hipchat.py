@@ -11,7 +11,7 @@ from behave import when, then
 def step_impl(context):
 
     context.authorized_page.enter_web_chat()
-    context.chat_page.open_chat()
+    context.chat_page.open_alias_room()
     context.chat_page.open_alias_menu()
     context.chat_page.open_menu()
     context.chat_page.open_config()
