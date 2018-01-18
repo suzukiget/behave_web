@@ -12,7 +12,7 @@ class ChatPage(Page):
 
     def find_alias_room(self):
         self.context.wait.until(EC.presence_of_element_located((By.ID, 'status_dropdown')))
-        return self.context.driver.find_element_by_xpath("//span[text()='Alias room']")
+        return self.context.driver.find_element_by_xpath("//a[@aria-label='Alias room']")
 
     def open_alias_menu(self):
         self.find_plus_button().click()
