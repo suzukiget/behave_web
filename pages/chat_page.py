@@ -2,6 +2,7 @@ from .base_page import Page
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
+
 class ChatPage(Page):
 
     url = 'chat/'
@@ -14,22 +15,20 @@ class ChatPage(Page):
         return self.context.driver.find_element_by_xpath("//span[text()='Alias room']")
 
     def open_alias_menu(self):
-        self.find_plus_butt().click()
+        self.find_plus_button().click()
 
-    def find_plus_butt(self):
+    def find_plus_button(self):
         self.context.wait.until(EC.presence_of_element_located((By.ID, 'input_actions_dropdown-trigger')))
         return self.context.driver.find_element_by_id("input_actions_dropdown-trigger")
 
     def open_menu(self):
-        self.find_butt_in_dropdown_menu().click()
+        self.find_button_in_dropdown_menu().click()
 
-
-
-    def find_butt_in_dropdown_menu(self):
-        self.context.wait.until(
-        lambda driver: driver.find_element_by_css_selector("#input_actions_dropdown > div > ul > li:nth-child(1) > a"))
-        return self.context.driver.find_element_by_css_selector("#input_actions_dropdown > div > ul > li:nth-child(1) > a")
-
+    def find_button_in_dropdown_menu(self):
+        self.context.wait.until(lambda driver: driver.find_element_by_css_selector(
+            "#input_actions_dropdown > div > ul > li:nth-child(1) > a"))
+        return self.context.driver.find_element_by_css_selector(
+            "#input_actions_dropdown > div > ul > li:nth-child(1) > a")
 
     def open_config(self):
         try:
@@ -52,30 +51,24 @@ class ChatPage(Page):
         return self.context.driver.find_element_by_name('alias')
 
     def input_data_in_alias_name_form(self):
-
         self.find_form_name().send_keys('HenaYamkoviy')
+        self.context.wait.until(EC.presence_of_element_located((By.XPATH, '//div[text()="@HenaYamkoviy"]')))
+        self.adding_data()
+
+    def adding_data(self):
         self.find_form_name().send_keys(u'\ue007')
         self.find_form_name().send_keys(u'\ue007')
 
     def find_form_name(self):
-        return self.context.driver.find_element(By.XPATH, '//*[@id="react-app"]/div/form/div/div[2]/div/div/div/input')
+        return self.context.driver.find_element(By.XPATH, '//input[@tabindex="0"]')
 
-    def find_input_but(self):
-        return self.context.driver.find_element_by_css_selector\
-            ('#react-app > div > form > div > div.aui-item.actions > input')
-
-
-    def find_added_el(self):
-        if self.find_input_but().get_attribute("disabled") == True:
-            self.find_form_name().send_keys(u'\ue007')
-            self.find_form_name().send_keys(u'\ue007')
-            self.find_input_but().click()
-
+    def find_added_element(self):
         self.context.wait.until(
             lambda driver: self.context.driver.find_elements_by_css_selector('.aui>.aliases>.alias>.mentions'))
-        tabledata = self.context.driver.find_elements_by_css_selector('.aui>.aliases>.alias>.mentions')
+        table = self.context.driver.find_elements_by_css_selector('.aui>.aliases>.alias>.mentions')
+
         result = False
-        for element in tabledata:
+        for element in table:
             if element.text == "@HenaYamkoviy":
                 result = True
         return result
