@@ -8,6 +8,6 @@ Scenario: Login to HipChat
     Then we see Welcome title
 
 
-#Scenario: Check account settings
-#    When we are on Account settings Page
-#    Then we see filled account settings
+Scenario: Check account settings
+    When we are on Account settings Page
+    Then we see filled account settings
